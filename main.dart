@@ -38,7 +38,6 @@ class _MyApp extends State<MyApp> {
   }
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: game.widget!=null?game.widget:Container());
   }

@@ -13,12 +13,12 @@ class Nodo {
   TextPainter textPaint;
 
   Nodo(this.game,double x,double y,String text){
-    textSp=new TextSpan(text: text,style: TextStyle(color: Colors.black,fontSize: game.tileSize/2));
+    textSp=new TextSpan(text: text,style: TextStyle(color: Colors.purple,fontSize: game.tileSize/2));
     textPaint=new TextPainter(text:textSp,textAlign:TextAlign.center,textDirection:TextDirection.rtl);
     textPaint.layout();
     pos=Rect.fromLTWH(x-game.tileSize/2, y-game.tileSize/2, game.tileSize, game.tileSize);
     paint=new Paint();
-    paint.color=Color(0xffdd3d16);
+    paint.color=Color(0xff00A2FF);
     circle = Offset(x, y);
   }
   void render(Canvas canvas) {
@@ -29,7 +29,10 @@ class Nodo {
   }
 
   void selectNodo(){
-    paint.color=Color(0xffc4710d);  
+    paint.color=Color(0xff00fffb);  
+  }
+  void unselectNodo(){
+    paint.color=Color(0xff00A2FF);  
   }
   void update(double t) {
     

@@ -96,7 +96,10 @@ class Grafo extends Game {
               blockScreen=false;
               actName=controller.text.toString();
               Navigator.pop(context);
-              actividad.add(Actividad(this, nodosSelec.elementAt(0),nodosSelec.elementAt(1),actName));              
+              actividad.add(Actividad(this, nodosSelec.elementAt(0),nodosSelec.elementAt(1),actName));   
+              for(Nodo nodo in nodos){          
+                nodo.unselectNodo();
+              }    
             },            
           ),
           MaterialButton(
@@ -133,6 +136,7 @@ class Grafo extends Game {
             nodo.selectNodo();
             if(nodosSelec.length==2){
               createActDialog();
+              //nodo.unselectNodo();
             }
             verf=true;
             break;
