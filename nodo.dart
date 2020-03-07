@@ -23,7 +23,7 @@ class Nodo {
   }
   void render(Canvas canvas) {
     canvas.drawCircle(circle, game.tileSize/2,paint);
-    double textW=textPaint.width,textH=textPaint.height;   
+    double textW=textPaint.width,textH=textPaint.height;       
     offSetText=Offset(circle.dx-textW/2, circle.dy-textH/2);
     textPaint.paint(canvas,offSetText);
   }

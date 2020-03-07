@@ -8,6 +8,9 @@ import 'package:flutter/gestures.dart';
 import 'package:app_grafos/nodo.dart';
 
 class Grafo extends Game {
+  
+  Rect posMenu;
+  Paint paintMenu;
   Size screenSize;
   BuildContext context;
   double tileSize;
@@ -35,6 +38,10 @@ class Grafo extends Game {
     canvas.drawRect(bgRect, bgPaint);
     nodos.forEach((Nodo nodo)=>nodo.render(canvas));
     actividad.forEach((Actividad act)=>act.render(canvas));
+    posMenu=Rect.fromLTWH(0, 0, 415, 80);
+    paintMenu=new Paint();
+    paintMenu.color=Color(0xff00B719);
+    canvas.drawRect(posMenu, paintMenu);
   }
   createNodoDialog(double x,double y){
     TextEditingController controller=TextEditingController();
@@ -129,7 +136,7 @@ class Grafo extends Game {
     print(d.globalPosition.dx);
     print(d.globalPosition.dy);
     if(!blockScreen){ 
-      if(nodos.length<9){
+      if(nodos.length<15){
         for(Nodo nodo in nodos){
           if(nodo.pos.contains(d.globalPosition)&&nodosSelec.length<2){
             nodosSelec.add(nodo);
@@ -145,7 +152,9 @@ class Grafo extends Game {
           }     
         }
         if(!verf){
-          createNodoDialog(d.globalPosition.dx, d.globalPosition.dy);
+          if(d.globalPosition.dy>80){
+            createNodoDialog(d.globalPosition.dx, d.globalPosition.dy);
+          }          
           nodosSelec.clear();
           c++;
         }
