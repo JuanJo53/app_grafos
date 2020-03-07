@@ -23,7 +23,21 @@ class Actividad{
     paint.strokeWidth=3;
     loc1=Offset(nodo1.circle.dx,nodo1.circle.dy);
     loc2=Offset(nodo2.circle.dx,nodo2.circle.dy);
-    locCircle=Offset((nodo1.circle.dx+4*nodo2.circle.dx)/5, (nodo1.circle.dy+4*nodo2.circle.dy)/5);
+    
+    if(nodo1.circle.dy>nodo2.circle.dy){
+      loc1=Offset(nodo1.circle.dx,nodo1.circle.dy+30);
+      loc2=Offset(nodo2.circle.dx,nodo2.circle.dy-30);
+    }else{
+      loc1=Offset(nodo1.circle.dx,nodo1.circle.dy+30);
+      loc2=Offset(nodo2.circle.dx,nodo2.circle.dy-30);
+    }
+    // if(nodo1.circle.dx>nodo2.circle.dx){
+    //   loc1=Offset(nodo1.circle.dx-10,nodo1.circle.dy);
+    //   loc2=Offset(nodo2.circle.dx,nodo2.circle.dy);
+    // }else{
+    //   loc1=Offset(nodo1.circle.dx,nodo1.circle.dy);
+    //   loc2=Offset(nodo2.circle.dx-10,nodo2.circle.dy);
+    // }
     offSetText=Offset(
       (nodo1.circle.dx+nodo2.circle.dx)/2,(nodo1.circle.dy+nodo2.circle.dy)/2
     );
