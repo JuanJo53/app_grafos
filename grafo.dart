@@ -9,8 +9,8 @@ import 'package:app_grafos/nodo.dart';
 
 class Grafo extends Game {
   
-  Rect posMenu;
-  Paint paintMenu;
+  Rect posMenu,posbtnLimpiar;
+  Paint paintMenu,paintbtnLimpiar;
   Size screenSize;
   BuildContext context;
   double tileSize;
@@ -39,9 +39,13 @@ class Grafo extends Game {
     nodos.forEach((Nodo nodo)=>nodo.render(canvas));
     actividad.forEach((Actividad act)=>act.render(canvas));
     posMenu=Rect.fromLTWH(0, 0, 415, 80);
+    posbtnLimpiar = Rect.fromLTWH(20, 20, 80, 45);     
+    paintbtnLimpiar=new Paint();
+    paintbtnLimpiar.color=Color(0xffF00606);
     paintMenu=new Paint();
     paintMenu.color=Color(0xff00B719);
     canvas.drawRect(posMenu, paintMenu);
+    canvas.drawRect(posbtnLimpiar, paintbtnLimpiar);
   }
   createNodoDialog(double x,double y){
     TextEditingController controller=TextEditingController();
