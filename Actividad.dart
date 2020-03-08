@@ -14,23 +14,25 @@ class Actividad{
   double dx, dy;
   double tox,toy;
   Offset offSetText,offsetDir;
-  Actividad(this.game,Nodo nodo1, Nodo nodo2,String value){
+  String value;
+  Actividad(this.game,Nodo nodo1, Nodo nodo2,this.value){
     textSp=new TextSpan(text: value,style: TextStyle(color: Colors.black,fontSize: game.tileSize/4));
     textPaint=new TextPainter(text:textSp,textAlign:TextAlign.center,textDirection:TextDirection.rtl);
     textPaint.layout();    
     paint=new Paint();
     paint.color=Color(0xff000000);
     paint.strokeWidth=3;
+    
     loc1=Offset(nodo1.circle.dx,nodo1.circle.dy);
     loc2=Offset(nodo2.circle.dx,nodo2.circle.dy);
     
-    if(nodo1.circle.dy>nodo2.circle.dy){
-      loc1=Offset(nodo1.circle.dx,nodo1.circle.dy+30);
-      loc2=Offset(nodo2.circle.dx,nodo2.circle.dy-30);
-    }else{
-      loc1=Offset(nodo1.circle.dx,nodo1.circle.dy+30);
-      loc2=Offset(nodo2.circle.dx,nodo2.circle.dy-30);
-    }
+    // if(nodo1.circle.dy>nodo2.circle.dy){
+    //   loc1=Offset(nodo1.circle.dx,nodo1.circle.dy+30);
+    //   loc2=Offset(nodo2.circle.dx,nodo2.circle.dy-30);
+    // }else{
+    //   loc1=Offset(nodo1.circle.dx,nodo1.circle.dy+30);
+    //   loc2=Offset(nodo2.circle.dx,nodo2.circle.dy-30);
+    // }
     // if(nodo1.circle.dx>nodo2.circle.dx){
     //   loc1=Offset(nodo1.circle.dx-10,nodo1.circle.dy);
     //   loc2=Offset(nodo2.circle.dx,nodo2.circle.dy);
@@ -39,7 +41,7 @@ class Actividad{
     //   loc2=Offset(nodo2.circle.dx-10,nodo2.circle.dy);
     // }
     offSetText=Offset(
-      (nodo1.circle.dx+nodo2.circle.dx)/2,(nodo1.circle.dy+nodo2.circle.dy)/2
+      (nodo1.circle.dx+nodo2.circle.dx*3)/4,(nodo1.circle.dy+nodo2.circle.dy*3)/4
     );
     tox=nodo2.circle.dx;
     toy=nodo2.circle.dy;
@@ -56,7 +58,6 @@ class Actividad{
     canvas.drawLine(loc1, loc2, paint);
     canvas.drawLine(center1, loc2, paint);
     canvas.drawLine(center2, loc2, paint);
-    textPaint.paint(canvas,locCircle);
-
+    textPaint.paint(canvas,offSetText);
   }
 }

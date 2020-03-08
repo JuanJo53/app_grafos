@@ -11,8 +11,10 @@ class Nodo {
   Rect pos;
   TextSpan textSp;
   TextPainter textPaint;
+  double x,y;
+  String text;
 
-  Nodo(this.game,double x,double y,String text){
+  Nodo(this.game,this.x,this.y,this.text){
     textSp=new TextSpan(text: text,style: TextStyle(color: Colors.purple,fontSize: game.tileSize/2));
     textPaint=new TextPainter(text:textSp,textAlign:TextAlign.center,textDirection:TextDirection.rtl);
     textPaint.layout();
