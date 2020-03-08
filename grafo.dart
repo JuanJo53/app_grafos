@@ -10,9 +10,9 @@ import 'package:app_grafos/nodo.dart';
 class Grafo extends Game {
   
   Rect posMenu;
-  Offset posbtnLimpiar,posbtnGrafos,posbtnActi,posbtnMat;
-  Paint paintMenu,paintbtnLimpiar,paintbtnGrafos,paintbtnActi,paintbtnMat;
-  TextPainter textPaintLimp,textPaintAct,textPaintGraf,textPaintMat;
+  Offset posbtnLimpiar,posbtnGrafos,posbtnActi,posbtnMat,posbtnDelAct;
+  Paint paintMenu,paintbtnLimpiar,paintbtnGrafos,paintbtnActi,paintbtnMat,paintDelAct;
+  TextPainter textPaintLimp,textPaintAct,textPaintGraf,textPaintMat,textPaintDelAct;
   TextSpan textSpLimp;
   Size screenSize;
   BuildContext context;
@@ -56,8 +56,10 @@ class Grafo extends Game {
     textPaintAct.paint(canvas,new Offset(67, 598));
     canvas.drawCircle(posbtnGrafos, 17,paintbtnGrafos);
     textPaintGraf.paint(canvas,new Offset(117, 598));
+    canvas.drawCircle(posbtnDelAct, 17,paintDelAct);
+    textPaintDelAct.paint(canvas,new Offset(167, 598));
     canvas.drawCircle(posbtnMat, 17,paintbtnMat);
-    textPaintMat.paint(canvas,new Offset(167, 598));
+    textPaintMat.paint(canvas,new Offset(217, 598));
   }
 
   void dibujarbotones(){
@@ -95,8 +97,16 @@ class Grafo extends Game {
     textSpLimp=new TextSpan(text: icon3t,style: TextStyle(color: Colors.greenAccent,fontSize: this.tileSize/2,fontFamily: icon3.fontFamily));
     textPaintGraf=new TextPainter(text:textSpLimp,textAlign:TextAlign.center,textDirection:TextDirection.rtl);
     textPaintGraf.layout(); 
+    
+    posbtnDelAct= Offset(180, 610);     
+    paintDelAct=new Paint();
+    paintDelAct.color=Color(0xff0677F0);
 
-    posbtnMat = Offset(180, 610);     
+    textSpLimp=new TextSpan(text: icon4t,style: TextStyle(color: Colors.greenAccent,fontSize: this.tileSize/2,fontFamily: icon4.fontFamily));
+    textPaintDelAct=new TextPainter(text:textSpLimp,textAlign:TextAlign.center,textDirection:TextDirection.rtl);
+    textPaintDelAct.layout(); 
+
+    posbtnMat = Offset(230, 610);     
     paintbtnMat=new Paint();
     paintbtnMat.color=Color(0xff0677F0);
 
@@ -200,7 +210,7 @@ class Grafo extends Game {
   }
   bool add=true,del_nodo=false;
   void onTapDown(TapDownDetails d) {
-
+    print("ADD "+add.toString()+"\nDEL "+del_nodo.toString());
     bool verf=false;   
     print(d.globalPosition.dx);
     print(d.globalPosition.dy);
@@ -210,7 +220,7 @@ class Grafo extends Game {
           if(nodo.pos.contains(d.globalPosition)&&nodosSelec.length<2&&add==true&&del_nodo==false){
             nodosSelec.add(nodo);
             nodo.selectNodo();
-            if(nodosSelec.length==2&&del_nodo==true){
+            if(nodosSelec.length==2){
               createActDialog();
               //nodo.unselectNodo();
             }
@@ -218,6 +228,13 @@ class Grafo extends Game {
             break;
           }else{
             verf=false;
+            if(nodo.pos.contains(d.globalPosition)&&add==false&&del_nodo==true){
+              for(int i=0;i<nodos.length;i++){
+                nodos.remove(nodos.elementAt(i));
+                print(nodos.elementAt(i).text);
+                // break;    
+              }                
+            }            
           }     
         }
         if(!verf){
@@ -238,24 +255,18 @@ class Grafo extends Game {
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<145 && d.globalPosition.dx>113){
             if(del_nodo){
               del_nodo=false;
-              print("DEL/NODO ACTIVADO");
-              for(Nodo nodo in nodos){
-                for(int i=0;i<nodos.length;i++){
-                  if(nodo.pos.contains(d.globalPosition)){
-                    //nodo.selectNodo();
-                    print(nodos.elementAt(i));
-                    nodos.remove(i);
-                    break;
-                  }     
-                }                
-              }
+              print("DEL/NODO DESACTIVADO"); 
             }else{
+              add=false;
               del_nodo=true;
-              print("DEL/NODO DESACTIVADO");              
+              print("DEL/NODO ACTIVADO");              
             }
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<195 && d.globalPosition.dx>162){
             
-            print("ADD NODO");
+            print("DEL/ACT ACTIVADO");
+          }else if(d.globalPosition.dy>595 && d.globalPosition.dx<245  && d.globalPosition.dx>215){
+            
+            print("MATRIZ");
           }
           nodosSelec.clear();
           c++;
@@ -267,4 +278,5 @@ class Grafo extends Game {
   void trackNodoPos(){
 
   }
+
 }
