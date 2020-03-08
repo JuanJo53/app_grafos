@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:arrow_path/arrow_path.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_grafos/grafo.dart';
@@ -40,6 +41,7 @@ class Actividad{
     //   loc1=Offset(nodo1.circle.dx,nodo1.circle.dy);
     //   loc2=Offset(nodo2.circle.dx-10,nodo2.circle.dy);
     // }
+
     offSetText=Offset(
       (nodo1.circle.dx+nodo2.circle.dx*3)/4,(nodo1.circle.dy+nodo2.circle.dy*3)/4
     );
@@ -59,5 +61,13 @@ class Actividad{
     canvas.drawLine(center1, loc2, paint);
     canvas.drawLine(center2, loc2, paint);
     textPaint.paint(canvas,offSetText);
+    
+    // Size size;
+    // Path path;
+    // path = Path();
+    // path.moveTo(size.width * 0.25, size.height * 0.10);
+    // path.relativeCubicTo(0, 0, size.width * 0.25, 50, size.width * 0.5, 0);
+    // path = ArrowPath.make(path: path);
+    // canvas.drawPath(path, paint..color = Colors.blue);
   }
 }

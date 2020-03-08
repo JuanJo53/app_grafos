@@ -22,9 +22,7 @@ class Grafo extends Game {
   List<Actividad> actividad;
   int c=0;
   bool blockScreen=false;
-  String nodoName="",actName="";
-  Icon clean,del_act,del_nod,add_act,add_nod;
-  
+  String nodoName="",actName=""; 
 
   Grafo(BuildContext context){
     this.context=context;
@@ -64,7 +62,7 @@ class Grafo extends Game {
 
   void dibujarbotones(){
     var icon2=Icons.add_circle;
-    var icon4=Icons.keyboard_backspace;
+    var icon4=Icons.arrow_forward;
     var icon3=Icons.remove_circle;
     var icon1=Icons.delete;
     var icon5=Icons.table_chart;
@@ -125,7 +123,10 @@ class Grafo extends Game {
               nodoName=controller.text.toString();
               Navigator.pop(context);
               nodos.add(Nodo(this, x, y,nodoName));  
-              // print(nodos.);
+                
+              for (int i=0;i<nodos.length;i++){
+                print(nodos.elementAt(i).text);
+              }
             },            
           ),
           MaterialButton(
@@ -170,10 +171,10 @@ class Grafo extends Game {
               actividad.add(Actividad(this, nodosSelec.elementAt(0),nodosSelec.elementAt(1),actName));   
               for(Nodo nodo in nodos){          
                 nodo.unselectNodo();
-              }    
-              for (int i=0;i<nodos.length;i++){
-                print(nodos.elementAt(i).text);
               }
+              for (int i=0;i<actividad.length;i++){
+                print(actividad.elementAt(i).value);
+              }  
             },            
           ),
           MaterialButton(
@@ -197,7 +198,7 @@ class Grafo extends Game {
     tileSize=screenSize.width/7;
     super.resize(size);
   }
-
+  bool add=true,del_nodo=false;
   void onTapDown(TapDownDetails d) {
 
     bool verf=false;   
@@ -206,10 +207,10 @@ class Grafo extends Game {
     if(!blockScreen){ 
       if(nodos.length<15){
         for(Nodo nodo in nodos){
-          if(nodo.pos.contains(d.globalPosition)&&nodosSelec.length<2){
+          if(nodo.pos.contains(d.globalPosition)&&nodosSelec.length<2&&add==true&&del_nodo==false){
             nodosSelec.add(nodo);
             nodo.selectNodo();
-            if(nodosSelec.length==2){
+            if(nodosSelec.length==2&&del_nodo==true){
               createActDialog();
               //nodo.unselectNodo();
             }
@@ -220,17 +221,50 @@ class Grafo extends Game {
           }     
         }
         if(!verf){
-          if(d.globalPosition.dy<580){
+          if(d.globalPosition.dy<580&&add==true&&del_nodo==false){
             createNodoDialog(d.globalPosition.dx, d.globalPosition.dy);
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<45 && d.globalPosition.dx>15){
-            print("HOLa");
-            nodos.clear();
+            nodos.clear();            
+            actividad.clear();            
+          }else if(d.globalPosition.dy>595 && d.globalPosition.dx<96 && d.globalPosition.dx>62){
+            if(add){
+              add=false;
+              print("EDICION DESACTIVADO");
+            }else{
+              add=true;
+              del_nodo=false;
+              print("EDICION ACTIVADO");
+            }
+          }else if(d.globalPosition.dy>595 && d.globalPosition.dx<145 && d.globalPosition.dx>113){
+            if(del_nodo){
+              del_nodo=false;
+              print("DEL/NODO ACTIVADO");
+              for(Nodo nodo in nodos){
+                for(int i=0;i<nodos.length;i++){
+                  if(nodo.pos.contains(d.globalPosition)){
+                    //nodo.selectNodo();
+                    print(nodos.elementAt(i));
+                    nodos.remove(i);
+                    break;
+                  }     
+                }                
+              }
+            }else{
+              del_nodo=true;
+              print("DEL/NODO DESACTIVADO");              
+            }
+          }else if(d.globalPosition.dy>595 && d.globalPosition.dx<195 && d.globalPosition.dx>162){
+            
+            print("ADD NODO");
           }
           nodosSelec.clear();
-          actividad.clear();
           c++;
         }
       }       
     } 
   } 
+
+  void trackNodoPos(){
+
+  }
 }
