@@ -199,7 +199,7 @@ class Grafo extends Game {
   }
 
   void onTapDown(TapDownDetails d) {
-    
+
     bool verf=false;   
     print(d.globalPosition.dx);
     print(d.globalPosition.dy);
@@ -222,8 +222,12 @@ class Grafo extends Game {
         if(!verf){
           if(d.globalPosition.dy<580){
             createNodoDialog(d.globalPosition.dx, d.globalPosition.dy);
-          }          
+          }else if(d.globalPosition.dy>595 && d.globalPosition.dx<45 && d.globalPosition.dx>15){
+            print("HOLa");
+            nodos.clear();
+          }
           nodosSelec.clear();
+          actividad.clear();
           c++;
         }
       }       
