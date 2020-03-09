@@ -7,6 +7,7 @@ import 'package:app_grafos/Actividad.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
 import 'package:app_grafos/nodo.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Grafo extends Game {
   
@@ -265,44 +266,101 @@ class Grafo extends Game {
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<96 && d.globalPosition.dx>62){
             if(add){
               add=false;
-              print("EDICION DESACTIVADO");
+              Fluttertoast.showToast(
+                msg: "EDICION DESACTIVADO",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0
+              );
             }else{
               add=true;
               del_nodo=false;
-              del_act=false;
-              print("EDICION ACTIVADO");
+              del_act=false;              
+              Fluttertoast.showToast(
+                msg: "EDICION ACTIVADO",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0
+              );
             }
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<145 && d.globalPosition.dx>113){
             if(del_nodo){
               del_nodo=false;
               del_act=false;
               add=true;
-              print("DEL/NODO DESACTIVADO"); 
+              Fluttertoast.showToast(
+                msg: "BORRAR ACTIVIDADES DESACTIVADO",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0
+              );
             }else{
               add=false;
               del_nodo=true;
               del_act=false;
-              print("DEL/NODO ACTIVADO");              
+              Fluttertoast.showToast(
+                msg: "BORRAR NODO ACTIVADO",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0
+              );              
             }
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<195 && d.globalPosition.dx>162){
             if(del_act){
               del_act=false;
-              print("DEL/ACT DESACTIVADO"); 
+              Fluttertoast.showToast(
+                msg: "BORRAR ACTIVIDADES DESACTIVADO",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0
+              );
             }else{
               add=false;
               del_nodo=false;
-              del_act=true;
-              print("DEL/ACT ACTIVADO");
+              del_act=true;              
+              Fluttertoast.showToast(
+                msg: "BORRAR ACTIVIDADES ACTIVADO",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0
+              );
             }
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<245  && d.globalPosition.dx>215){
-            //TODO: aqui se llama las funciones de la matriz
             verf=true;
             add=false;
             del_nodo=false;
             del_act=false;
-            if(!add){
+            if(!add && actividad.length>0){
               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>matriz(actividad,nodos)));
               print("MATRIZ");
+            }else{
+              Fluttertoast.showToast(
+                msg: "DEBE TENER MINIMO UNA ACTIVIDAD",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0
+              );
             }
           }
           nodosSelec.clear();
