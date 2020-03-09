@@ -2,7 +2,6 @@ import 'package:app_grafos/Actividad.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
-
 import 'nodo.dart';
 
 class matriz extends StatefulWidget{

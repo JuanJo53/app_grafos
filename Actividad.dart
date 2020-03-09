@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:arrow_path/arrow_path.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_grafos/grafo.dart';
