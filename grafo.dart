@@ -262,7 +262,16 @@ class Grafo extends Game {
             createNodoDialog(d.globalPosition.dx, d.globalPosition.dy);
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<45 && d.globalPosition.dx>15){
             nodos.clear();            
-            actividad.clear();            
+            actividad.clear();   
+            Fluttertoast.showToast(
+                msg: "SE LIMPIO LA PANTALLA",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0
+              );         
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<96 && d.globalPosition.dx>62){
             if(add){
               add=false;
@@ -271,7 +280,7 @@ class Grafo extends Game {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIos: 1,
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.orange,
                 textColor: Colors.white,
                 fontSize: 16.0
               );
@@ -284,7 +293,7 @@ class Grafo extends Game {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIos: 1,
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.orange,
                 textColor: Colors.white,
                 fontSize: 16.0
               );
@@ -295,11 +304,11 @@ class Grafo extends Game {
               del_act=false;
               add=true;
               Fluttertoast.showToast(
-                msg: "BORRAR ACTIVIDADES DESACTIVADO",
+                msg: "BORRAR NODO DESACTIVADO",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIos: 1,
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.orange,
                 textColor: Colors.white,
                 fontSize: 16.0
               );
@@ -312,7 +321,7 @@ class Grafo extends Game {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIos: 1,
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.orange,
                 textColor: Colors.white,
                 fontSize: 16.0
               );              
@@ -325,7 +334,7 @@ class Grafo extends Game {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIos: 1,
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.orange,
                 textColor: Colors.white,
                 fontSize: 16.0
               );
@@ -338,7 +347,7 @@ class Grafo extends Game {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIos: 1,
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.orange,
                 textColor: Colors.white,
                 fontSize: 16.0
               );
@@ -350,7 +359,15 @@ class Grafo extends Game {
             del_act=false;
             if(!add && actividad.length>0){
               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>matriz(actividad,nodos)));
-              print("MATRIZ");
+              Fluttertoast.showToast(
+                msg: "MATRIZ GENERADA",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.blue,
+                textColor: Colors.white,
+                fontSize: 16.0
+              );
             }else{
               Fluttertoast.showToast(
                 msg: "DEBE TENER MINIMO UNA ACTIVIDAD",
