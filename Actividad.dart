@@ -8,15 +8,17 @@ import 'package:app_grafos/nodo.dart';
 
 class Actividad{
   final Grafo game;
-  Paint paint,paintCircle;
+  Paint paint,paintCircle, paintAtrib;
   Offset loc1,loc2,locCircle;  
+  Rect atributo;
   TextSpan textSp;
   TextPainter textPaint;
   double dx, dy;
   double tox,toy;
   Offset offSetText,offsetDir;
   String value;
-  Actividad(this.game,Nodo nodo1, Nodo nodo2,this.value){
+  Nodo nodo1,nodo2;
+  Actividad(this.game,this.nodo1, this.nodo2,this.value){
     textSp=new TextSpan(text: value,style: TextStyle(color: Colors.black,fontSize: game.tileSize/4));
     textPaint=new TextPainter(text:textSp,textAlign:TextAlign.center,textDirection:TextDirection.rtl);
     textPaint.layout();    
@@ -45,6 +47,10 @@ class Actividad{
     offSetText=Offset(
       (nodo1.circle.dx+nodo2.circle.dx*3)/4,(nodo1.circle.dy+nodo2.circle.dy*3)/4
     );
+    atributo=Rect.fromLTWH((nodo1.circle.dx+nodo2.circle.dx*3)/4, (nodo1.circle.dy+nodo2.circle.dy*3)/4, 20, 20);
+    // paintAtrib=new Paint();
+    // paintAtrib.color=Color(0xff000000);
+
     tox=nodo2.circle.dx;
     toy=nodo2.circle.dy;
     dx = (nodo2.circle.dx-nodo1.circle.dx);
@@ -57,17 +63,12 @@ class Actividad{
 
     Offset center1= Offset(tox - headlen * cos(angle +pi / 6),toy - headlen * sin(angle + pi / 6));
     Offset center2= Offset(tox - headlen * cos(angle -pi / 6),toy - headlen * sin(angle - pi / 6));
+    
+    //canvas.drawRect(atributo, paintAtrib);
     canvas.drawLine(loc1, loc2, paint);
     canvas.drawLine(center1, loc2, paint);
     canvas.drawLine(center2, loc2, paint);
     textPaint.paint(canvas,offSetText);
     
-    // Size size;
-    // Path path;
-    // path = Path();
-    // path.moveTo(size.width * 0.25, size.height * 0.10);
-    // path.relativeCubicTo(0, 0, size.width * 0.25, 50, size.width * 0.5, 0);
-    // path = ArrowPath.make(path: path);
-    // canvas.drawPath(path, paint..color = Colors.blue);
   }
 }

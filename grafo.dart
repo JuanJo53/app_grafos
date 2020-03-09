@@ -19,6 +19,7 @@ class Grafo extends Game {
   double tileSize;
   List<Nodo> nodos;
   List<Nodo> nodosSelec;
+  List<Nodo> nodosSelec2;
   List<Actividad> actividad;
   int c=0;
   bool blockScreen=false;
@@ -32,6 +33,7 @@ class Grafo extends Game {
   void initialize() async {
     nodos=List<Nodo>();
     nodosSelec=List<Nodo>();
+    nodosSelec2=List<Nodo>();
     actividad=List<Actividad>();
     resize(await Flame.util.initialDimensions());
   }
@@ -208,33 +210,49 @@ class Grafo extends Game {
     tileSize=screenSize.width/7;
     super.resize(size);
   }
-  bool add=true,del_nodo=false;
+  bool add=true,del_nodo=false,del_act=false;
   void onTapDown(TapDownDetails d) {
-    print("ADD "+add.toString()+"\nDEL "+del_nodo.toString());
+    print("ADD "+add.toString()+"\nDEL NODO"+del_nodo.toString()+"\nDEL ACT"+del_act.toString());
     bool verf=false;   
+    Nodo nodo_aux,nodo_selc1,nodo_selc2;
+    Actividad act_aux;
     print(d.globalPosition.dx);
     print(d.globalPosition.dy);
     if(!blockScreen){ 
       if(nodos.length<15){
         for(Nodo nodo in nodos){
-          if(nodo.pos.contains(d.globalPosition)&&nodosSelec.length<2&&add==true&&del_nodo==false){
+          if(nodo.pos.contains(d.globalPosition)&&nodosSelec.length<2&&add==true&&del_nodo==false&&del_act==false){
             nodosSelec.add(nodo);
             nodo.selectNodo();
             if(nodosSelec.length==2){
-              createActDialog();
+              createActDialog();                            
               //nodo.unselectNodo();
             }
             verf=true;
             break;
           }else{
             verf=false;
-            if(nodo.pos.contains(d.globalPosition)&&add==false&&del_nodo==true){
-              for(int i=0;i<nodos.length;i++){
-                nodos.remove(nodos.elementAt(i));
-                print(nodos.elementAt(i).text);
-                // break;    
-              }                
-            }            
+            if(nodo.pos.contains(d.globalPosition)&&add==false&&del_nodo==true&&del_act==false){
+              nodo_aux=nodo;
+              nodos.remove(nodo_aux);
+              for(Actividad act in actividad){
+                    if((nodo==act.nodo1||nodo==act.nodo2)){
+                      act_aux=act;
+                      actividad.remove(act_aux);
+                      break;                    
+                    } 
+                  } 
+              break;                    
+            }else{
+              verf=false;              
+              for(Actividad act in actividad){
+                if(act.atributo.contains(d.globalPosition)&&add==false&&del_nodo==false&&del_act==true){
+                  act_aux=act;
+                  actividad.remove(act_aux);
+                  break;
+                }
+              }
+            }              
           }     
         }
         if(!verf){
@@ -250,20 +268,31 @@ class Grafo extends Game {
             }else{
               add=true;
               del_nodo=false;
+              del_act=false;
               print("EDICION ACTIVADO");
             }
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<145 && d.globalPosition.dx>113){
             if(del_nodo){
               del_nodo=false;
+              del_act=false;
+              add=true;
               print("DEL/NODO DESACTIVADO"); 
             }else{
               add=false;
               del_nodo=true;
+              del_act=false;
               print("DEL/NODO ACTIVADO");              
             }
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<195 && d.globalPosition.dx>162){
-            
-            print("DEL/ACT ACTIVADO");
+            if(del_act){
+              del_act=false;
+              print("DEL/ACT DESACTIVADO"); 
+            }else{
+              add=false;
+              del_nodo=false;
+              del_act=true;
+              print("DEL/ACT ACTIVADO");
+            }
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<245  && d.globalPosition.dx>215){
             
             print("MATRIZ");
