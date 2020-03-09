@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:app_grafos/matriz.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -294,8 +295,15 @@ class Grafo extends Game {
               print("DEL/ACT ACTIVADO");
             }
           }else if(d.globalPosition.dy>595 && d.globalPosition.dx<245  && d.globalPosition.dx>215){
-            
-            print("MATRIZ");
+            //TODO: aqui se llama las funciones de la matriz
+            verf=true;
+            add=false;
+            del_nodo=false;
+            del_act=false;
+            if(!add){
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>matriz(actividad,nodos)));
+              print("MATRIZ");
+            }
           }
           nodosSelec.clear();
           c++;
